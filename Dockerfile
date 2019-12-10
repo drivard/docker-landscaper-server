@@ -1,19 +1,23 @@
-FROM ubuntu:14.04
+FROM ubuntu:18.04
 MAINTAINER oliver@cloudsurge.co.uk
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get install -fy software-properties-common
+# RUN apt-get install -y software-properties-common
 
 #Add repository that contains the landscape server
-RUN add-apt-repository ppa:landscape/15.01
+RUN apt-get update
+RUN apt-get install -fy gnupg2
+RUN echo 'deb http://ppa.launchpad.net/landscape/19.10/ubuntu bionic main' > /etc/apt/sources.list.d/landscape-ubuntu-19_10-bionic.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6E85A86E4652B4E6
 RUN apt-get update
 RUN apt-get -fy dist-upgrade 
 
-RUN apt-cache search landscape
-RUN apt-get -fy install supervisor landscape-server apache2-mpm-worker
+RUN apt-get -fy install supervisor
+RUN apt-get -fy install apache2
+RUN apt-get -fy install landscape-server
 
-RUN for module in rewrite proxy_http ssl headers expires; do sudo a2enmod $module; done
+RUN for module in rewrite proxy_http ssl headers expires; do a2enmod $module; done
 RUN a2dissite 000-default
 
 COPY assets/landscape-service.conf /etc/landscape/service.conf

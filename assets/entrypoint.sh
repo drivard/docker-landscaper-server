@@ -109,6 +109,8 @@ appInit () {
   sed -i 's,{{RMQ_PASS}},'"${RMQ_PASS}"',g' /etc/landscape/service.conf
   sed -i 's,{{RMQ_VHOST}},'"${RMQ_VHOST}"',g' /etc/landscape/service.conf
 
+  sed -i 's,{{APACHE_SERVER_NAME}},'"${APACHE_SERVER_NAME}"',g' /etc/apache2/sites-available/landscape.conf
+
   #Make sure permissions are correct on service.conf
   chmod 644 /etc/landscape/service.conf
 
@@ -157,15 +159,14 @@ appStart () {
   fi
 
   printf "Starting landscape components\n"
-  /etc/init.d/landscape-combo-loader start
-  /etc/init.d/landscape-appserver start
-  /etc/init.d/landscape-async-frontend start
-  /etc/init.d/landscape-job-handler start
-  /etc/init.d/landscape-msgserver start
-  /etc/init.d/landscape-pingserver start
-  /etc/init.d/landscape-api start
-  /etc/init.d/landscape-juju-sync start
-  /etc/init.d/landscape-package-upload start
+  #/etc/init.d/landscape-appserver start
+  #/etc/init.d/landscape-async-frontend start
+  #/etc/init.d/landscape-job-handler start
+  #/etc/init.d/landscape-msgserver start
+  #/etc/init.d/landscape-pingserver start
+  #/etc/init.d/landscape-api start
+  #/etc/init.d/landscape-package-upload start
+  /usr/bin/lsctl start &
   
   . /etc/default/landscape-server
   /opt/canonical/landscape/package-search &
