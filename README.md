@@ -71,3 +71,10 @@ docker run -d --link postgres:postgres --link rabbitmq:rabbitmq -e INITIALIZE_SC
 | RMQ_USER             | guest     | The rabbitmq user |
 | RMQ_PASS             | guest     | The rabbitmq password |
 | RMQ_VHOST            | default   | The vhost to be used by the message broker |
+
+
+# Based on the work of these two projects.
+
+- https://github.com/drivard/docker-landscaper-server
+- https://hub.docker.com/r/konvergence/landscape
+
