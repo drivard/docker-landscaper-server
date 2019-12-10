@@ -3,13 +3,11 @@ MAINTAINER oliver@cloudsurge.co.uk
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# RUN apt-get install -y software-properties-common
+RUN apt-get update
+RUN apt-get install -fy software-properties-common
 
 #Add repository that contains the landscape server
-RUN apt-get update
-RUN apt-get install -fy gnupg2
-RUN echo 'deb http://ppa.launchpad.net/landscape/19.10/ubuntu bionic main' > /etc/apt/sources.list.d/landscape-ubuntu-19_10-bionic.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6E85A86E4652B4E6
+RUN add-apt-repository ppa:landscape/19.10
 RUN apt-get update
 RUN apt-get -fy dist-upgrade 
 
